@@ -29,19 +29,29 @@ h1 {
 
 button {
   border: 3px solid Pink;
-  padding: 5px;
+  font-size: 1.5rem;
+  padding: 10px;
   margin: 5px;
+  /* max-width: 10%; */
 }
 
-.app {
+.App {
+  padding-bottom: 50px;
+}
+
+.spells {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .spellBox {
   width: 800px;
   background: pink;
   position: absolute;
+  top: 50vh;
+  left: calc(50% - 400px);
   padding: 20px 50px;
   text-align: center;
 }

@@ -4,7 +4,6 @@ import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import './App.css';
 import GetUrl from './GetUrl';
-import GetSpells from "./GetSpells";
 
 
 class Spells extends Component {
@@ -23,7 +22,7 @@ class Spells extends Component {
       method: 'GET',
       responseType: 'json',
     }).then( (response) => {
-      // console.log(response);
+      console.log(response);
       this.setState({
         spells: response.data.results,
       })
@@ -49,10 +48,6 @@ class Spells extends Component {
                 </Fragment>
                 )
             })
-            }
-
-            {
-              this.state.isShowing ? <GetSpells url={this.state.url}/>: null
             }
 
         </Fragment>

@@ -18,8 +18,9 @@ class App extends Component {
     return (
       <div className="App wrapper">
         <h1>Spell Compendium</h1>
-
-        <Spells />
+        <div className='spells'>
+          <Spells />
+        </div>
 
       </div>
     );

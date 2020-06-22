@@ -25,13 +25,19 @@ class GetUrl extends Component {
       })
     }
 
+  closeWindow = () => {
+    this.setState({
+      isShowing: this.state.isShowing ? false : true
+    })
+  }
+
 
     render(){
         return (
             <Fragment>
                 <button onClick={this.handleClick} value={this.props.value}>{this.props.name}</button>
                 {
-                  this.state.isShowing ? <GetSpells url={this.state.url}/>: null
+                  this.state.isShowing ? <GetSpells url={this.state.url} closeWindow={this.closeWindow}/>: null
                 }
 
             </Fragment>
