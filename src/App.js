@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import Spells from './Spells'
-import './App.css';
 import ClassButtons from './ClassButtons';
-import LevelButtons from './LevelButtons'
+import LevelButtons from './LevelButtons';
+import Info from './Info'
+import './App.css';
 
 class App extends Component {
 
@@ -14,18 +14,23 @@ class App extends Component {
       charClass: '',
       isShowing: false,
       isAlsoShowing: false,
+      spellBoxShowing: false,
       disabled: false,
       alsoDisabled: false,
+      spellInfo: [],
+      name: '',
+      materials: '',
+      description: '',
+      higherLevel: '',
     }
   }
 
 
   handleClick = (charClass) => {
-    // toggle the isShowing
     charClass = charClass.target.value;
     this.setState({
       charClass,
-      isShowing: this.state.isShowing ? false : true,
+      isShowing: true,
       disabled: true
     })     
   }
@@ -33,8 +38,8 @@ class App extends Component {
   storeLevel = (event) => {
     this.setState({
       level: event.target.value,
-      isAlsoShowing: this.state.isAlsoShowing ? false : true,
-      alsoDisabled: true,
+      isAlsoShowing: true,
+      // alsoDisabled: true,
     })
     // call the api with the button value as part of the search
     axios({
@@ -49,6 +54,30 @@ class App extends Component {
     })
   }
 
+  spellInfo = (e) => {
+    axios({
+        url: "https://www.dnd5eapi.co" + e.target.value,
+        method: 'GET',
+        responseType: 'json',
+    }).then( (spell) => {
+        const spellName = spell.data;
+        this.setState({
+            spellInfo: spellName,
+            name: spellName.name,
+            materials: spellName.material,
+            description: spellName['desc'],
+            higherLevel: spellName['higher_level'],
+            spellBoxShowing: true
+        });
+    })
+  }
+
+  closeWindow = () => {
+    this.setState({
+        spellBoxShowing: this.state.spellBoxShowing ? false : true
+    })   
+  }
+
   reset = () => {
     window.location.reload();
   }
@@ -56,28 +85,38 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        <h1>Spell Compendium</h1>
-        <section className="options wrapper">
-          <ClassButtons handleClick={this.handleClick} disabled={this.state.disabled}/>
+        <div className="wrapper flexContainer">
+          <section className="instructions">
+            <h1>Spell Compendium</h1>
+            <h3>Choose a Character Class and Spell Level to see the spells for that class and spell level. Click on the spell name to show spell info!</h3>
 
-          { this.state.isShowing ? 
-          
+
+          </section>
+          <section className="options ">
+            <ClassButtons handleClick={this.handleClick} disabled={this.state.disabled}/>
+
+            { this.state.isShowing ? 
             <LevelButtons storeLevel={this.storeLevel} alsoDisabled={this.state.alsoDisabled}/>:null }
 
-          <div className="spells wrapper">
-            { this.state.isAlsoShowing ?
-            (this.state.spells.map( (spell, index) => {
-              return (
-                <Fragment key={index}>
-                  {
-                    <Spells active={this.state.active} name={spell.name} url={spell.url} level={this.state.level} reset={this.reset}/>
-                  }
-                </Fragment>
-              )
-            })):null
-            }
-          </div>
-        </section>
+            <div className="spells">
+              { this.state.isAlsoShowing ?
+              (this.state.spells.map( (spell, index) => {
+                return (
+                  <Fragment key={index}>
+                    <button onClick={this.spellInfo} value={spell.url} >{spell.name}</button>         
+                  </Fragment>
+                )
+              })):null
+              }
+            </div>
+          </section>
+
+          <section>
+              { this.state.spellBoxShowing ? 
+                (<Info name={this.state.name} material={this.state.materials} desc={this.state.description} higher={this.state.higherLevel} closeWindow={this.closeWindow} reset={this.props.reset}/>):null }
+          </section>
+        </div>
+        <button className="reset" onClick={this.reset}>Find Another Spell</button>
       </div>
     );
   }
