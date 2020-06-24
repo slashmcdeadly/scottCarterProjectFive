@@ -15,14 +15,16 @@ class App extends Component {
       isShowing: false,
       isAlsoShowing: false,
       spellBoxShowing: false,
+      resetShowing: false,
       disabled: false,
       alsoDisabled: false,
       spellInfo: [],
       name: '',
       materials: '',
       description: '',
+      count: 0,
       higherLevel: '',
-      changingText: 'Choose a Character Class and Spell Level to see the spells for that class and spell level. Click on the spell name to show spell info!',
+      changingText: 'Choose a Dungeons and Dragons 5th Edition Character Class and Spell Level to see the spells for that class and spell level. Click on the spell name to show spell info!',
       levelDisplay: ''
     }
   }
@@ -41,7 +43,7 @@ class App extends Component {
     this.setState({
       isAlsoShowing: true,
       levelDisplay: "Level " + event.target.value,
-      // alsoDisabled: true,
+      resetShowing: true
     })
     // call the api with the button value as part of the search
     axios({
@@ -49,15 +51,18 @@ class App extends Component {
       method: 'GET',
       responseType: 'json',
     }).then( (spells) => {
-      spells = spells.data.results;
+      
+      console.log(spells)
       this.setState({
-        spells,
+        spells: spells.data.results,
         changingText: this.state.charClass,
+        count: spells.data.count
       })
     })
   }
 
   spellInfo = (e) => {
+    window.scroll({top: 0});
     axios({
         url: "https://www.dnd5eapi.co" + e.target.value,
         method: 'GET',
@@ -80,6 +85,7 @@ class App extends Component {
   }
 
   render(){
+    console.log(this.state.spells)
     return (
       <div className="App">
         <main className="wrapper flexContainer">
@@ -88,11 +94,10 @@ class App extends Component {
             <h3>{this.state.changingText}</h3>
             <h4>{this.state.levelDisplay}</h4>
 
-            
             { this.state.spellBoxShowing ? 
               (<Info name={this.state.name} material={this.state.materials} desc={this.state.description} higher={this.state.higherLevel}/>):null }
-           
-            <button className="reset" onClick={this.reset}>Find Another Spell</button>
+            { this.state.resetShowing ?
+            <button className="reset" onClick={this.reset}>Change Class</button>:null}
 
           </section>
           <section className="options ">
@@ -108,11 +113,13 @@ class App extends Component {
               (this.state.spells.map( (spell, index) => {
                 return (
                   <Fragment key={index}>
-                    <button onClick={this.spellInfo} value={spell.url} >{spell.name}</button>         
+                    <button onClick={this.spellInfo} value={spell.url} >{spell.name}</button>      
+
                   </Fragment>
                 )
               })):null
-              }
+            }
+            {this.state.count === 0 && this.state.isAlsoShowing ? <h2>NO SPELLS</h2>:null}
             </div>
           </section>
         </main>
