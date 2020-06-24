@@ -25,8 +25,10 @@ html {
 
 h1 {
   font-size: 4rem;
-  margin-top: 0px;
+  margin: 0px;
   font-family: 'Berkshire Swash', cursive;
+  color: #352208;
+  text-decoration: underline;
 }
 
 h1::first-letter {
@@ -35,22 +37,35 @@ h1::first-letter {
   color: #540804;
 }
 
+h2 {
+  font-size: 3rem;
+  font-family: 'Shadows Into Light', cursive;
+  margin-bottom: 0px;
+}
+
 h3 {
   font-size: 2.5rem;
   max-width: 90%;
   margin: 0 auto;
   font-family: 'Shadows Into Light', cursive;
+  color: #352208;
+  text-transform: capitalize;
+}
+
+h4 {
+  font-size: 2rem;
+  margin: 5px;
+  font-family: 'Berkshire Swash', cursive;
 }
 
 button {
+  color: #352208;
   padding: 10px;
   max-width: 175px;
   font-size: 2rem;
   background-color: transparent;
   border: none;
-  border-radius: 20px;
-  margin: 10px;
-  font-family: 'Berkshire Swash', cursive;
+  font-family: 'Shadows Into Light', cursive;
   transition: all .5s;
 }
 
@@ -64,7 +79,8 @@ button:disabled {
   display: none;
 }
 
-button:hover {
+button:hover,
+button:focus {
   color: #540804;
   font-size: 2.5rem;
 }
@@ -73,7 +89,8 @@ button:hover {
   text-align: center;
   background: url('./assets/spellbook.png');
   background-size: cover;
-  height: 100vh;
+  background-position: 0px -20px;
+  min-height: 100vh;
 }
 
 .flexContainer {
@@ -83,54 +100,95 @@ button:hover {
 
 .instructions {
   order: 2;
+  margin-top: 70px;
 }
 
 .options {
   display: flex;
-  flex-direction: column;
   order: 1;
+  margin-top: 50px;
 }
 
 .options, .instructions {
-  margin-top: 100px;
   width: calc(50% - 50px);
 }
 
 .classButtons, .spellLevel {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
+  position: relative;
+  top: 50px;
+}
+
+.classButtons {
+  left: 50px;
+}
+
+
+.classButtons button {
+  font-size: 4rem;
+}
+
+.classButtons button::first-letter {
+  font-size: 6rem;
+}
+
+.classButtons button:hover,
+.classButtons button:focus {
+  font-size: 5rem;
+}
+
+.spellLevel button:hover,
+.spellLevel button:focus {
+  border: 2px solid #540804;
+}
+
+.spellLevel button {
+  transition: all .5s;
+  margin: 0px 20px;
+  border-right: 2px solid #540804;
 }
 
 .spellLevel {
   width: 95%;
+  
 }
 
 .spells {
   display: flex;
   flex-direction: column;
-  max-height: 79vh;
-  max-width: 95%;
+  max-height: 78vh;
+  width: 95%;
   flex-wrap: wrap;
-  padding-top: 20px;
   overflow: scroll;
+  position: relative;
+  top: 50px;
 }
 
 .spellBox {
-  max-width: 35%;
-  position: absolute;
-  top: 40vh;
-  right: 10%;
-}
-
-.spellBox section {
+  max-height: 30vh;
   position: relative;
 }
 
-.spellBox div p {
-  font-size: 3rem;
-  position: absolute;
-  right: -20px;
-  top: -70px;
+.spellBox p:first-of-type {
+  font-size: 2rem;
+  font-family: 'Berkshire Swash', cursive;
+  border: none;
+}
+
+.spellBox p {
+  font-size: 2rem;
+  overflow: auto;
+  max-height: 30vh;
+  font-family: 'Shadows Into Light', cursive;
+  border: 2px solid black;
+  padding: 5px;
+}
+
+.spellBox p:last-of-type {
+  max-height: 90px;
+  border: none;
 }
 
 .reset {
@@ -143,8 +201,8 @@ button:hover {
   border-radius: 0px;
   border: 2px solid white;
   position: absolute;
-  bottom: 10vh;
-  right: 20%;
+  bottom: 40px;
+  right: 19%;
 }
 
 .reset::first-letter {
@@ -155,4 +213,119 @@ button:hover {
 .reset:hover {
   color: white;
   font-size: 4rem;
+}
+
+footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  background-color:#352208;
+  font-size: 2rem;
+  color: white;
+  font-family: 'Shadows Into Light', cursive;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Media Queries */
+
+/* tablet landscape */
+@media (max-width: 1150px) {
+  .App {
+    background: url("./assets/8fb07d1d8660048cc089a07047e7e77d.jpg");
+    background-size: cover;
+    background-repeat: repeat-y;
+    background-position: 0px;
+  }
+
+  h1 {
+    margin-bottom: 40px;
+  }
+
+  .flexContainer {
+    flex-direction: column;
+  }
+  
+  .instructions {
+    order: 1;
+    margin-top: 20px;
+  }
+
+  .instructions, .options {
+    width: 100%;
+  }
+
+  .options {
+    flex-direction: column;
+  }
+
+  .classButtons {
+    top: 0px;
+    left: 0px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .classButtons button {
+    margin: 3% 5%;
+  }
+
+  .spellLevel {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 2px solid #540804;
+    top: 0px;
+  }
+
+  .spellLevel button {
+    border-right: none;
+  }
+
+  .spells {
+    top: 0px;
+    max-height: 90vh;
+    padding-bottom: 50px;
+    align-items: center;
+  }
+
+  .spellBox {
+    max-height: 100vh;
+  }
+
+  .reset {
+    position: relative;
+    bottom: -40px;
+    right: 0px;
+  }
+
+  button {
+    color: white;
+  }
+
+  button:hover,
+  button:focus {
+    font-size: 2rem;
+    color: red;
+  }
+}
+
+/* tablet portrait and phone landscape */
+
+@media (max-width: 650px) {
+  .spells {
+    max-height: 110vh;
+  }
+}
+
+/* phone portrait */
+
+@media (max-width: 425px) {
+  .spells {
+    max-height: 300vh;
+  }
 }

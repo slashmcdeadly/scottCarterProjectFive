@@ -22,6 +22,8 @@ class App extends Component {
       materials: '',
       description: '',
       higherLevel: '',
+      changingText: 'Choose a Character Class and Spell Level to see the spells for that class and spell level. Click on the spell name to show spell info!',
+      levelDisplay: ''
     }
   }
 
@@ -37,8 +39,8 @@ class App extends Component {
 
   storeLevel = (event) => {
     this.setState({
-      level: event.target.value,
       isAlsoShowing: true,
+      levelDisplay: "Level " + event.target.value,
       // alsoDisabled: true,
     })
     // call the api with the button value as part of the search
@@ -49,7 +51,8 @@ class App extends Component {
     }).then( (spells) => {
       spells = spells.data.results;
       this.setState({
-        spells
+        spells,
+        changingText: this.state.charClass,
       })
     })
   }
@@ -72,12 +75,6 @@ class App extends Component {
     })
   }
 
-  closeWindow = () => {
-    this.setState({
-        spellBoxShowing: this.state.spellBoxShowing ? false : true
-    })   
-  }
-
   reset = () => {
     window.location.reload();
   }
@@ -85,18 +82,26 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        <div className="wrapper flexContainer">
+        <main className="wrapper flexContainer">
           <section className="instructions">
             <h1>Spell Compendium</h1>
-            <h3>Choose a Character Class and Spell Level to see the spells for that class and spell level. Click on the spell name to show spell info!</h3>
+            <h3>{this.state.changingText}</h3>
+            <h4>{this.state.levelDisplay}</h4>
 
+            
+            { this.state.spellBoxShowing ? 
+              (<Info name={this.state.name} material={this.state.materials} desc={this.state.description} higher={this.state.higherLevel}/>):null }
+           
+            <button className="reset" onClick={this.reset}>Find Another Spell</button>
 
           </section>
           <section className="options ">
-            <ClassButtons handleClick={this.handleClick} disabled={this.state.disabled}/>
+            <div className="levelClass">
+              <ClassButtons handleClick={this.handleClick} disabled={this.state.disabled}/>
 
-            { this.state.isShowing ? 
-            <LevelButtons storeLevel={this.storeLevel} alsoDisabled={this.state.alsoDisabled}/>:null }
+              { this.state.isShowing ? 
+              <LevelButtons storeLevel={this.storeLevel} alsoDisabled={this.state.alsoDisabled}/>:null }
+            </div>
 
             <div className="spells">
               { this.state.isAlsoShowing ?
@@ -110,13 +115,9 @@ class App extends Component {
               }
             </div>
           </section>
-
-          <section>
-              { this.state.spellBoxShowing ? 
-                (<Info name={this.state.name} material={this.state.materials} desc={this.state.description} higher={this.state.higherLevel} closeWindow={this.closeWindow} reset={this.props.reset}/>):null }
-          </section>
-        </div>
-        <button className="reset" onClick={this.reset}>Find Another Spell</button>
+        </main>
+        
+        <footer>This site was made by <a href="https://scottcarterdev.com">Scott Carter</a></footer>
       </div>
     );
   }
