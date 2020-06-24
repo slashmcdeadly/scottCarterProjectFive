@@ -1,58 +1,61 @@
-//GetUrl.js
+// Spells.js
 
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import './App.css';
-import GetUrl from './GetUrl';
+import Info from './Info';
 
+class Spells extends Component{
 
-class Spells extends Component {
-
-  constructor(){
-    super();
-    this.state = {
-      spells: [],
+    constructor(){
+        super();
+        this.state = {
+            spellInfo: [],
+            name: '',
+            materials: '',
+            description: '',
+            higherLevel: '',
+            active: ''
+        }
     }
-  }
 
+    spellInfo = (e) => {
+        axios({
+            url: "https://www.dnd5eapi.co" + e.target.value,
+            method: 'GET',
+            responseType: 'json',
+        }).then( (spell) => {
+            const spellName = spell.data;
+            this.setState({
+                spellInfo: spellName,
+                name: spellName.name,
+                materials: spellName.material,
+                description: spellName['desc'],
+                higherLevel: spellName['higher_level'],
+                isShowing: this.state.isShowing ? false : true,
+                active: this.state.active ? false : true
+            });
+        })
+    }
 
-  componentDidMount(){
-    axios({
-      url: 'https://www.dnd5eapi.co/api/spells',
-      method: 'GET',
-      responseType: 'json',
-    }).then( (response) => {
-      console.log(response);
-      this.setState({
-        spells: response.data.results,
-      })
-    })
-  }
+    closeWindow = () => {
+        this.setState({
+            isShowing: this.state.isShowing ? false : true
+        })   
+    }
+    
+    render(){
+        return(
+            <Fragment>
+                <button onClick={this.spellInfo} value={this.props.url} >{this.props.name}</button>
 
-  
+                <div>
+                    { this.state.isShowing ? 
+                        (<Info name={this.state.name} material={this.state.materials} desc={this.state.description} higher={this.state.higherLevel} closeWindow={this.closeWindow} reset={this.props.reset}/>):null }
+                </div>
 
-  // handleClick = (e) => {
-  //     console.log(e.target.innerText)
-  // }
-
-
-  render(){
-    return (
-        <Fragment>
-
-            {
-            this.state.spells.map( (spell, index) => {
-                return(
-                <Fragment key={index}>
-                    <GetUrl url={spell.url} value={spell.url} name={spell.name}/>
-                </Fragment>
-                )
-            })
-            }
-
-        </Fragment>
-    )
-  }
+            </Fragment>
+        )
+    }
 }
 
 export default Spells;
