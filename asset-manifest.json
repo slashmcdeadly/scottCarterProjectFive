@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/scottCarterProjectFive/static/css/main.8e7cadb7.chunk.css",
-    "main.js": "/scottCarterProjectFive/static/js/main.c22af214.chunk.js",
-    "main.js.map": "/scottCarterProjectFive/static/js/main.c22af214.chunk.js.map",
+    "main.css": "/scottCarterProjectFive/static/css/main.c59c10f0.chunk.css",
+    "main.js": "/scottCarterProjectFive/static/js/main.1ba7f169.chunk.js",
+    "main.js.map": "/scottCarterProjectFive/static/js/main.1ba7f169.chunk.js.map",
     "runtime-main.js": "/scottCarterProjectFive/static/js/runtime-main.7bb241c4.js",
     "runtime-main.js.map": "/scottCarterProjectFive/static/js/runtime-main.7bb241c4.js.map",
     "static/js/2.6b1204ca.chunk.js": "/scottCarterProjectFive/static/js/2.6b1204ca.chunk.js",
     "static/js/2.6b1204ca.chunk.js.map": "/scottCarterProjectFive/static/js/2.6b1204ca.chunk.js.map",
     "index.html": "/scottCarterProjectFive/index.html",
-    "precache-manifest.288855c1cb8796740d8769ec9a72deaa.js": "/scottCarterProjectFive/precache-manifest.288855c1cb8796740d8769ec9a72deaa.js",
+    "precache-manifest.2740ddc2ffd2c41acb356814a6658c19.js": "/scottCarterProjectFive/precache-manifest.2740ddc2ffd2c41acb356814a6658c19.js",
     "service-worker.js": "/scottCarterProjectFive/service-worker.js",
-    "static/css/main.8e7cadb7.chunk.css.map": "/scottCarterProjectFive/static/css/main.8e7cadb7.chunk.css.map",
+    "static/css/main.c59c10f0.chunk.css.map": "/scottCarterProjectFive/static/css/main.c59c10f0.chunk.css.map",
     "static/js/2.6b1204ca.chunk.js.LICENSE.txt": "/scottCarterProjectFive/static/js/2.6b1204ca.chunk.js.LICENSE.txt",
     "static/media/App.css": "/scottCarterProjectFive/static/media/spellbook.91700e4b.png"
   },
   "entrypoints": [
     "static/js/runtime-main.7bb241c4.js",
     "static/js/2.6b1204ca.chunk.js",
-    "static/css/main.8e7cadb7.chunk.css",
-    "static/js/main.c22af214.chunk.js"
+    "static/css/main.c59c10f0.chunk.css",
+    "static/js/main.1ba7f169.chunk.js"
   ]
 }
